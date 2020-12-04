@@ -7,7 +7,7 @@ authors = ["Finn-Thorben Sell <dev@finn-thorben.me>"]
 maintainers = ["Mafiasi-AG <mafiasi-ag@group.mafiasi.de>"]
 readme = "README.md"
 repository = "https://git.mafiasi.de/mafiasi-ag/django_auth_mafiasi"
-documentation = "https://docs.mafiasi.de/"
+documentation = "https://git.mafiasi.de/mafiasi-ag/django_auth_mafiasi/src/branch/master/README.md"
 
 exclude = ["django_auth_mafiasi/settings.py"]
 
