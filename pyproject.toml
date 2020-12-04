@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django_auth_mafiasi"
-version = "0.0.32"
+version = "1.0.0"
 description = "Django authentication library for working with Mafiasi"
 license = "MIT"
 authors = ["Finn-Thorben Sell <dev@finn-thorben.me>"]
