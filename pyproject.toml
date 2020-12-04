@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django_auth_mafiasi"
-version = "0.0.30"
+version = "0.0.32"
 description = "Django authentication library for working with Mafiasi"
 license = "MIT"
 authors = ["Finn-Thorben Sell <dev@finn-thorben.me>"]
@@ -16,6 +16,7 @@ python = "^3.7"
 django = ">=3.1"
 django-auth-oidc = ">=0.6"
 django-configurations = { version= ">=2.2", optional = true }
+djangorestframework = { version = ">=3.12", optional = true }
 
 [tool.poetry.dev-dependencies]
 
