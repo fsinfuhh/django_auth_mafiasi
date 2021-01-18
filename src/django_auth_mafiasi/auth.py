@@ -9,7 +9,7 @@ from .models import MafiasiAuthModelUser
 def _is_in_groups(token: dict, required_groups: List[str]) -> bool:
     if "*" in required_groups:
         return True
-    if token["groups"] is "":
+    if token["groups"] == "":
         return False
 
     return required_groups == [i for i in required_groups if i in token["groups"]]
