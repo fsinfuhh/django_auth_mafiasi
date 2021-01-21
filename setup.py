@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="django_auth_mafiasi",
-    version="1.3.0",
+    version="1.3.1",
     author="Finn-Thorben Sell",
     author_email="7sell@informatik.uni-hamburg.de",
     description="Django authentication library for working with Mafiasi",
