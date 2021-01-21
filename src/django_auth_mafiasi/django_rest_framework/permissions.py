@@ -6,6 +6,11 @@ def get_user(request):
 
 
 class IsStaff(BasePermission):
+    """
+    Grants permission if the logged-in user is considered staff
+
+    See https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User.is_staff
+    """
     def has_permission(self, request, view):
         return request.user.is_staff
 
@@ -14,6 +19,11 @@ class IsStaff(BasePermission):
 
 
 class IsSuperUser(BasePermission):
+    """
+    Grants permission if the logged-in user is considered a superuser
+
+    See https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User.is_superuser
+    """
     def has_permission(self, request, view):
         return request.user.is_superuser
 

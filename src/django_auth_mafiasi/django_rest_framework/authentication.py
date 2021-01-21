@@ -22,7 +22,15 @@ except ImportError as e:
 
 class OpenIdAccessTokenAuthentication(BaseAuthentication):
     """
-    Authenticates users based on an OpenId access token in `Authorization: Bearer <…>` header
+    Authenticates users based on an OpenId access token in the `Authorization: Bearer <…>` header
+
+    For authentication to be successful the following criteria MUST be met:
+
+    - The bearer token **must** be a correctly encoded Json Web Token (JWT)
+    - The JWT **must** be valid according to the OpenId spec (not expired, correct issuer, valid signature, …)
+    - The scopes to which this token has access **must** include all scopes listed in
+      `settings.REST_FRAMEWORK_REQUIRED_SCOPES`.
+      It **may** have access to more scopes.
     """
     def authenticate(self, request: Request):
         scheme, token = str(request.headers["authorization"]).split(" ", 1)
@@ -50,7 +58,7 @@ class OpenIdAccessTokenAuthentication(BaseAuthentication):
 
         # validate required scopes
         token_scopes = decoded_token["scope"].split(" ")
-        missing_scopes = [i for i in settings.REST_FRAMEWORK_AUTH["REQUIRED_SCOPES"] if i not in token_scopes]
+        missing_scopes = [i for i in settings.REST_FRAMEWORK_REQUIRED_SCOPES if i not in token_scopes]
         if len(missing_scopes) > 0:
             raise AuthenticationFailed(detail=f"token is missing scopes {missing_scopes} which are required "
                                               f"for accessing this application")
