@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="django_auth_mafiasi",
-    version="1.1.0",
+    version="1.2.0",
     author="Finn-Thorben Sell",
     author_email="7sell@informatik.uni-hamburg.de",
     description="Django authentication library for working with Mafiasi",
@@ -14,9 +14,10 @@ setuptools.setup(
     install_requires=[
         "django>=3.1",
         "django-auth-oidc>=0.6",
+        "oic>=1.2",
     ],
     extras_require={
         "django-configurations": "django-configurations>=2.2",
-        "djangorestframework": "djangorestframework>=3.12",
+        "djangorestframework": ["djangorestframework>=3.12", "py-jwt-verifier>=0.7"],
     },
 )
