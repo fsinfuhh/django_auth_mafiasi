@@ -15,6 +15,10 @@ class BaseAuthConfigurationMixin:
     AUTH_STAFF_GROUPS = values.ListValue(default=["Mafiasi-AG"])
     AUTH_SUPERUSER_GROUPS = values.ListValue(default=["Server-AG"])
 
+    REST_FRAMEWORK_AUTH = {
+        "REQUIRED_SCOPES": ["openid"]
+    }
+
     LOGIN_REDIRECT_URL = "/"
     LOGOUT_REDIRECT_URL = "/"
 
