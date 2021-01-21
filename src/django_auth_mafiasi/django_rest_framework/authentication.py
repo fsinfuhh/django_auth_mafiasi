@@ -6,6 +6,13 @@ from py_jwt_verifier import PyJwtVerifier, PyJwtException
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.request import Request
 
+try:
+    from .openapi import *
+except ImportError:
+    # this was probably because drf-spectacular is not installed
+    # we can ignore the error because we don't need to provide any metadata to drf-spectacula if it is not used
+    pass
+
 
 try:
     get_user_from_access_token = import_string(settings.AUTH_GET_USER_FROM_ACCESS_TOKEN_FUNCTION)
