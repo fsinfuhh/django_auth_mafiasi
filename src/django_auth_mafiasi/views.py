@@ -1,12 +1,19 @@
-from django.core.handlers.wsgi import WSGIRequest
+from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 from django.conf import settings
 from django.contrib import auth as django_auth
 from django.shortcuts import redirect, resolve_url
+from django.utils.module_loading import import_string
 from oic import rndstr
 from oic.oic import AuthorizationResponse
 
 from . import auth
+
+
+try:
+    get_user_from_id_token = import_string(settings.AUTH_GET_USER_FROM_ID_TOKEN_FUNCTION)
+except ImportError as e:
+    raise ImproperlyConfigured(e)
 
 
 def login(request):
@@ -34,7 +41,7 @@ def login_callback(request):
     token_response = client.do_access_token_request(scope=settings.AUTH_SCOPE, state=auth_response["state"],
                                                     request_args={"code": auth_response["code"], "redirect_uri": request.build_absolute_uri(reverse("django_auth_mafiasi:login-callback"))})
 
-    user = auth.get_user_from_id_token(token_response["id_token"])
+    user = get_user_from_id_token(token_response["id_token"])
     django_auth.login(request, user)
     request.session["oic_access_token"] = token_response["access_token"]
     request.session["oic_id_token"] = token_response["id_token"].to_dict()

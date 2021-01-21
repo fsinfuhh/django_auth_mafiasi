@@ -4,7 +4,8 @@ from configurations import values
 class BaseAuthConfigurationMixin:
     MAFIASI_AUTH_APPS = ["django_auth_oidc", "django_auth_mafiasi"]
 
-    AUTH_GET_USER_FUNCTION = "django_auth_mafiasi.auth:get_user_from_id_token"
+    AUTH_GET_USER_FROM_ID_TOKEN_FUNCTION = "django_auth_mafiasi.auth.get_user_from_id_token"
+    AUTH_GET_USER_FROM_ACCESS_TOKEN_FUNCTION = "django_auth_mafiasi.auth.get_user_from_access_token"
     AUTH_USER_MODEL = "django_auth_mafiasi.MafiasiAuthModelUser"
 
     AUTH_SERVER = values.URLValue(default="https://identity.mafiasi.de/auth/realms/mafiasi")

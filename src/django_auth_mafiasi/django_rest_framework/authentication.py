@@ -1,10 +1,16 @@
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
+from django.utils.module_loading import import_string
 from rest_framework.authentication import BaseAuthentication
 from py_jwt_verifier import PyJwtVerifier, PyJwtException
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.request import Request
 
-from django_auth_mafiasi.auth import get_user_from_access_token
+
+try:
+    get_user_from_access_token = import_string(settings.AUTH_GET_USER_FROM_ACCESS_TOKEN_FUNCTION)
+except ImportError as e:
+    raise ImproperlyConfigured(e)
 
 
 class OpenIdAccessTokenAuthentication(BaseAuthentication):

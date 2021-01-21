@@ -5,8 +5,6 @@ from django.conf import settings
 from oic.oic import Client, RegistrationResponse
 from oic.utils.authn.client import CLIENT_AUTHN_METHOD
 
-from .models import MafiasiAuthModelUser
-
 
 def _is_in_groups(token: dict, required_groups: List[str]) -> bool:
     if "*" in required_groups:
@@ -27,7 +25,6 @@ def get_client():
 
 def get_user_from_access_token(token: dict):
     User = get_user_model()
-    user: MafiasiAuthModelUser
     user, created = User.objects.get_or_create(id=token["sub"])
     return user
 
@@ -36,7 +33,6 @@ def get_user_from_id_token(id_token: dict):
     id_token = defaultdict(lambda: "", **id_token)
 
     User = get_user_model()
-    user: MafiasiAuthModelUser
     user, created = User.objects.get_or_create(id=id_token["sub"])
 
     user.username = id_token["username"]
