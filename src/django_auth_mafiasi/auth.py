@@ -15,7 +15,14 @@ def _is_in_groups(token: dict, required_groups: List[str]) -> bool:
     return required_groups == [i for i in required_groups if i in token["groups"]]
 
 
-def get_user_from_token(id_token: dict):
+def get_user_from_access_token(token: dict):
+    User = get_user_model()
+    user: MafiasiAuthModelUser
+    user, created = User.objects.get_or_create(id=token["sub"])
+    return user
+
+
+def get_user_from_id_token(id_token: dict):
     id_token = defaultdict(lambda: "", **id_token)
 
     User = get_user_model()

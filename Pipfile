@@ -9,6 +9,7 @@ django-auth-oidc = "~=0.6"
 django-configurations = "~=2.2"
 djangorestframework = "~=3.12"
 oic = "~=1.2"
+py-jwt-verifier = "~=0.7"
 
 [dev-packages]
 

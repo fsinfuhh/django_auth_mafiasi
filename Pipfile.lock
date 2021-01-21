@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fcbecd0d175cbff65087781362da38b6c0fa579a681808a3615ff096eb63ef54"
+            "sha256": "687ac45ff20e4f7c767b5357610895599698f28ad79668fc054e28d487160fcb"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -230,6 +230,14 @@
             ],
             "version": "==0.5.0"
         },
+        "py-jwt-verifier": {
+            "hashes": [
+                "sha256:8b3839743f9f017ea0da70d9baded48c3d97c3117f217ad0389247ef17302690",
+                "sha256:dc18947e2b1cc53200de869c056661684ee73531a6d206c39bd8c17b4f1a8144"
+            ],
+            "index": "pypi",
+            "version": "==0.7.1"
+        },
         "pyasn1": {
             "hashes": [
                 "sha256:014c0e9976956a08139dc0712ae195324a75e142284d5f87f1a87ee1b068a359",
@@ -324,6 +332,13 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==2.25.1"
+        },
+        "requests-cache": {
+            "hashes": [
+                "sha256:813023269686045f8e01e2289cc1e7e9ae5ab22ddd1e2849a9093ab3ab7270eb",
+                "sha256:81e13559baee64677a7d73b85498a5a8f0639e204517b5d05ff378e44a57831a"
+            ],
+            "version": "==0.5.2"
         },
         "rsa": {
             "hashes": [
