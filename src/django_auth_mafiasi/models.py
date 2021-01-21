@@ -9,3 +9,6 @@ class MafiasiAuthModelUser(AbstractUser):
     username = models.CharField(max_length=150, unique=True, blank=True)
 
     REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return f"{self.id} ({self.username if self.username else 'unknown'})"
