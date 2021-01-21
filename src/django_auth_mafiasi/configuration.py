@@ -15,6 +15,9 @@ class BaseAuthConfigurationMixin:
     AUTH_STAFF_GROUPS = values.ListValue(default=["Mafiasi-AG"])
     AUTH_SUPERUSER_GROUPS = values.ListValue(default=["Server-AG"])
 
+    LOGIN_REDIRECT_URL = "/"
+    LOGOUT_REDIRECT_URL = "/"
+
 
 class DevAuthConfigurationMixin:
     AUTH_CLIENT_ID = values.Value(default="dev-client")

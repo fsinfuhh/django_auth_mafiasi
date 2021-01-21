@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 django = "~=3.1"
-django-auth-oidc = "~=0.6"
 django-configurations = "~=2.2"
 djangorestframework = "~=3.12"
 oic = "~=1.2"

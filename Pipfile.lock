@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "687ac45ff20e4f7c767b5357610895599698f28ad79668fc054e28d487160fcb"
+            "sha256": "e168d8df8f4bc2ff446c289bd5ea72fab89529348b8bb2a89d6cfd3368e739df"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -122,14 +122,6 @@
             "index": "pypi",
             "version": "==3.1.5"
         },
-        "django-auth-oidc": {
-            "hashes": [
-                "sha256:3788b5c582c1d4aa5efa1d74a93e6effafca8630605661a40caaa085886fa023",
-                "sha256:d6457dd9f253da12feac5639bbb87f7b2a0bd2a3749fdd8c827560456a865b2b"
-            ],
-            "index": "pypi",
-            "version": "==0.6.0"
-        },
         "django-configurations": {
             "hashes": [
                 "sha256:0b93cb7042739e2d69cfc6fb81676bbd3cbb63ea19b02e8b681f4cad3a8aaf1b",
@@ -145,14 +137,6 @@
             ],
             "index": "pypi",
             "version": "==3.12.2"
-        },
-        "ecdsa": {
-            "hashes": [
-                "sha256:64c613005f13efec6541bb0a33290d0d03c27abab5f15fbab20fb0ee162bdd8e",
-                "sha256:e108a5fe92c67639abae3260e43561af914e7fd0d27bae6d2ec1312ae7934dfe"
-            ],
-            "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3'",
-            "version": "==0.14.1"
         },
         "future": {
             "hashes": [
@@ -223,13 +207,6 @@
             "index": "pypi",
             "version": "==1.2.1"
         },
-        "openid-connect": {
-            "hashes": [
-                "sha256:6d30406331c3384b0c02d07b7d0e00e4b2feb3b13be65b1e84e3178512d9aa48",
-                "sha256:ea7235ce9320ca0274f60c1b6f059819a71643c94c8a484b1a110cb2549ed6b7"
-            ],
-            "version": "==0.5.0"
-        },
         "py-jwt-verifier": {
             "hashes": [
                 "sha256:8b3839743f9f017ea0da70d9baded48c3d97c3117f217ad0389247ef17302690",
@@ -237,24 +214,6 @@
             ],
             "index": "pypi",
             "version": "==0.7.1"
-        },
-        "pyasn1": {
-            "hashes": [
-                "sha256:014c0e9976956a08139dc0712ae195324a75e142284d5f87f1a87ee1b068a359",
-                "sha256:03840c999ba71680a131cfaee6fab142e1ed9bbd9c693e285cc6aca0d555e576",
-                "sha256:0458773cfe65b153891ac249bcf1b5f8f320b7c2ce462151f8fa74de8934becf",
-                "sha256:08c3c53b75eaa48d71cf8c710312316392ed40899cb34710d092e96745a358b7",
-                "sha256:39c7e2ec30515947ff4e87fb6f456dfc6e84857d34be479c9d4a4ba4bf46aa5d",
-                "sha256:5c9414dcfede6e441f7e8f81b43b34e834731003427e5b09e4e00e3172a10f00",
-                "sha256:6e7545f1a61025a4e58bb336952c5061697da694db1cae97b116e9c46abcf7c8",
-                "sha256:78fa6da68ed2727915c4767bb386ab32cdba863caa7dbe473eaae45f9959da86",
-                "sha256:7ab8a544af125fb704feadb008c99a88805126fb525280b2270bb25cc1d78a12",
-                "sha256:99fcc3c8d804d1bc6d9a099921e39d827026409a58f2a720dcdb89374ea0c776",
-                "sha256:aef77c9fb94a3ac588e87841208bdec464471d9871bd5050a287cc9a475cd0ba",
-                "sha256:e89bf84b5437b532b0803ba5c9a5e054d21fec423a89952a74f87fa2c9b7bce2",
-                "sha256:fec3e9d8e36808a28efb59b489e4528c10ad0f480e57dcc32b4de5c9d8c9fdf3"
-            ],
-            "version": "==0.4.8"
         },
         "pycparser": {
             "hashes": [
@@ -311,13 +270,6 @@
             ],
             "version": "==1.4.2"
         },
-        "python-jose": {
-            "hashes": [
-                "sha256:4e4192402e100b5fb09de5a8ea6bcc39c36ad4526341c123d401e2561720335b",
-                "sha256:67d7dfff599df676b04a996520d9be90d6cdb7e6dd10b4c7cacc0c3e2e92f2be"
-            ],
-            "version": "==3.2.0"
-        },
         "pytz": {
             "hashes": [
                 "sha256:16962c5fb8db4a8f63a26646d8886e9d769b6c511543557bc84e9569fb9a9cb4",
@@ -339,14 +291,6 @@
                 "sha256:81e13559baee64677a7d73b85498a5a8f0639e204517b5d05ff378e44a57831a"
             ],
             "version": "==0.5.2"
-        },
-        "rsa": {
-            "hashes": [
-                "sha256:69805d6b69f56eb05b62daea3a7dbd7aa44324ad1306445e05da8060232d00f4",
-                "sha256:a8774e55b59fd9fc893b0d05e9bfc6f47081f46ff5b46f39ccf24631b7be356b"
-            ],
-            "markers": "python_version >= '3.5' and python_version < '4'",
-            "version": "==4.7"
         },
         "six": {
             "hashes": [

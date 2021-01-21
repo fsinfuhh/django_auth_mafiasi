@@ -13,7 +13,6 @@ setuptools.setup(
     python_requires=">=3.7",
     install_requires=[
         "django>=3.1",
-        "django-auth-oidc>=0.6",
         "oic>=1.2",
     ],
     extras_require={

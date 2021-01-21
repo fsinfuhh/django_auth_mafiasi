@@ -2,6 +2,8 @@ from collections import defaultdict
 from typing import *
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from oic.oic import Client, RegistrationResponse
+from oic.utils.authn.client import CLIENT_AUTHN_METHOD
 
 from .models import MafiasiAuthModelUser
 
@@ -13,6 +15,14 @@ def _is_in_groups(token: dict, required_groups: List[str]) -> bool:
         return False
 
     return required_groups == [i for i in required_groups if i in token["groups"]]
+
+
+def get_client():
+    client = Client(client_id=settings.AUTH_CLIENT_ID, client_authn_method=CLIENT_AUTHN_METHOD)
+    client.provider_config(issuer=settings.AUTH_SERVER)
+    client.store_registration_info(RegistrationResponse(client_id=settings.AUTH_CLIENT_ID, client_secret=settings.AUTH_CLIENT_SECRET))
+
+    return client
 
 
 def get_user_from_access_token(token: dict):
