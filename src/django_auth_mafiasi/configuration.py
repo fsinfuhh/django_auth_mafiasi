@@ -2,7 +2,7 @@ from configurations import values
 
 
 class BaseAuthConfigurationMixin:
-    MAFIASI_AUTH_APPS = ["django_auth_oidc", "django_auth_mafiasi"]
+    MAFIASI_AUTH_APPS = ["django_auth_mafiasi"]
 
     AUTH_GET_USER_FROM_ID_TOKEN_FUNCTION = "django_auth_mafiasi.auth.get_user_from_id_token"
     AUTH_GET_USER_FROM_ACCESS_TOKEN_FUNCTION = "django_auth_mafiasi.auth.get_user_from_access_token"
