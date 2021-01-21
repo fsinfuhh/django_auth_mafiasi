@@ -97,7 +97,7 @@ if __name__ == "__main__":
     session = defaultdict(lambda: "")
 
     # serve a basic http server so that authorization code flow can be used
-    with HTTPServer(("127.0.0.1", 8000), RequestHandler) as server:
+    with HTTPServer(("127.0.0.1", 8080), RequestHandler) as server:
         print(f"Open http://{server.server_name}:{server.server_port}")
         try:
             server.serve_forever()
