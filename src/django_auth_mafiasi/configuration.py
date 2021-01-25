@@ -44,7 +44,7 @@ class BaseAuthConfigurationMixin:
     AUTH_SUPERUSER_GROUPS = values.ListValue(default=["Server-AG"])
     "Which groups are considered to be superusers (have access to everything)"
 
-    REST_FRAMEWORK_REQUIRED_SCOPES = ["openid"]
+    REST_FRAMEWORK_REQUIRED_SCOPES = values.ListValue(default=["openid"])
     "Scopes to which an access token needs to have access to in order to be allowed access the an API secured by the rest framework authenticator"
 
     LOGIN_REDIRECT_URL = "/"
