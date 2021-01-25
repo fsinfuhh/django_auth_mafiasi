@@ -12,11 +12,11 @@ setuptools.setup(
     package_dir={"": "src"},
     python_requires=">=3.7",
     install_requires=[
-        "django>=3.1",
-        "oic>=1.2",
+        "django >=3.1",
+        "oic >=1.2",
     ],
     extras_require={
-        "django-configurations": "django-configurations>=2.2",
-        "djangorestframework": ["djangorestframework>=3.12", "py-jwt-verifier>=0.7"],
+        "django-configurations": "django-configurations >=2.2",
+        "djangorestframework": ["djangorestframework >=3.12", "py-jwt-verifier >=0.7"],
     },
 )
