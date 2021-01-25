@@ -32,6 +32,10 @@ class OpenIdAccessTokenAuthentication(BaseAuthentication):
       `settings.REST_FRAMEWORK_REQUIRED_SCOPES`.
       It **may** have access to more scopes.
     """
+
+    def authenticate_header(self, request):
+        return 'Bearer realm="Mafiasi Identity issued access token"'
+
     def authenticate(self, request: Request):
         scheme, token = str(request.headers["authorization"]).split(" ", 1)
         if scheme.lower() != "bearer":
