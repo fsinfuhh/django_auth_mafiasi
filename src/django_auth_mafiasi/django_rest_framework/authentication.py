@@ -37,6 +37,9 @@ class OpenIdAccessTokenAuthentication(BaseAuthentication):
         return 'Bearer realm="Mafiasi Identity issued access token"'
 
     def authenticate(self, request: Request):
+        if "authorization" not in request.headers.keys():
+            return None
+
         scheme, token = str(request.headers["authorization"]).split(" ", 1)
         if scheme.lower() != "bearer":
             return None
