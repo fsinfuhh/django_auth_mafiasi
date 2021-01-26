@@ -1,21 +1,22 @@
 #!/usr/bin/env python3
 import argparse
 import json
+import urllib.parse
 from collections import defaultdict
 from oic.oic import Client, RegistrationResponse
 from oic.oic.message import AuthorizationResponse
 from oic.utils.authn.client import CLIENT_AUTHN_METHOD
 from oic import rndstr
-from getpass import getpass
-from http.server import HTTPServer, BaseHTTPRequestHandler, SimpleHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from http import HTTPStatus
 
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path == "/":
+        url = urllib.parse.urlparse(self.path)
+        if url.path == "/":
             self._handle_initial()
-        elif self.path.startswith("/callback/"):
+        elif url.path.startswith("/callback/"):
             self._handle_callback()
         else:
             self.return_redirect("/")
