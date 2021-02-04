@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             name='username',
             field=models.CharField(max_length=150, null=True, unique=True),
         ),
-        migrations.RunSQL(sql='UPDATE django_auth_mafiasi_mafiasiauthmodeluser SET username = NULL WHERE username == \'\';',
-                          reverse_sql='UPDATE django_auth_mafiasi_mafiasiauthmodeluser SET username = \'\' WHERE username == NULL')
+        migrations.RunSQL(sql='UPDATE django_auth_mafiasi_mafiasiauthmodeluser SET username = NULL WHERE username = \'\';',
+                          reverse_sql='UPDATE django_auth_mafiasi_mafiasiauthmodeluser SET username = \'\' WHERE username = NULL')
     ]
