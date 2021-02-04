@@ -53,6 +53,8 @@ class BaseAuthConfigurationMixin:
     LOGOUT_REDIRECT_URL = "/"
     "Where to redirect a user after logout"
 
+    LOGIN_URL = "django_auth_mafiasi:login"
+
 
 class DevAuthConfigurationMixin:
     """
