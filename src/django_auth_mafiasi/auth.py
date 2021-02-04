@@ -35,7 +35,8 @@ def get_user_from_id_token(id_token: dict):
     User = get_user_model()
     user, created = User.objects.get_or_create(id=id_token["sub"])
 
-    user.username = id_token["username"]
+    # we set username to None instead of a blank string to avoid unique constraint collisions
+    user.username = id_token["username"] if id_token["username"] != "" else None
     user.first_name = id_token["given_name"]
     user.last_name = id_token["family_name"]
     user.email = id_token["email"]
