@@ -9,9 +9,19 @@ It particularly aims to take care of any authentication related functionality so
 same technology and conform to the same security requirements.
 
 There are essentially two distinct feature-sets which this library provides:
-- Authenticate users logging in to the current application
-- Validate and associate already authenticated users access tokens on this application 
-  (useful when this application is a backend API)
+1. **App Server Authentication** 
+
+   Authenticate users logging in to the current application.
+   For this, the library provides utilities, database models and complete views for managing the login process as an app server.
+
+   ![App Server Diagram](.diagrams/app-server.drawio.svg)
+
+2. **Resource Server Access Control**
+   
+   Validate and associate already authenticated users access tokens on this application (useful when this application is a backend API).
+   For this, the library provides verification functions, database models and [djangorestframework authenticators](https://www.django-rest-framework.org/api-guide/authentication/).
+
+   ![Resource Server Diagram](.diagrams/resource-server.drawio.svg)
 
 ## How it works
 
