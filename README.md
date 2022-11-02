@@ -24,14 +24,10 @@ There are essentially two distinct feature-sets which this library provides:
    ![Resource Server Diagram](.diagrams/resource-server.drawio.svg)
 
 
-## How to use it
+## How to: *App Server Authentication*
 
-1. First, you need to **add the library as dependency**. We don't publish it on pypi so you will have to use a git
-  dependency. See the documentation
-  for [Poetry](https://python-poetry.org/docs/dependency-specification/#git-dependencies)
-  , [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html#a-note-about-vcs-dependencies) or
-  plain [requirements.txt](https://stackoverflow.com/questions/16584552/how-to-state-in-requirements-txt-a-direct-github-source)
-  syntax.
+1. First, you need to **add the library as dependency**. We don't publish it on pypi, so you will have to use a git dependency. 
+   See the documentation for [Poetry](https://python-poetry.org/docs/dependency-specification/#git-dependencies), [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html#a-note-about-vcs-dependencies) or plain [requirements.txt](https://stackoverflow.com/questions/16584552/how-to-state-in-requirements-txt-a-direct-github-source) syntax.
 
    The relevant repository is the one
   at [github.com/fsinfuhh/django_auth_mafiasi](https://github.com/fsinfuhh/django_auth_mafiasi).
