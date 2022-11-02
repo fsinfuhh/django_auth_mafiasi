@@ -4,7 +4,7 @@ import json
 import urllib.parse
 from collections import defaultdict
 from oic.oic import Client, RegistrationResponse
-from oic.oic.message import AuthorizationResponse
+from oic.oic.message import AuthorizationResponse, AuthorizationErrorResponse
 from oic.utils.authn.client import CLIENT_AUTHN_METHOD
 from oic import rndstr
 from http.server import HTTPServer, BaseHTTPRequestHandler
@@ -29,7 +29,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         session["nonce"] = rndstr()
         auth_req = client.construct_AuthorizationRequest(request_args={
             "response_type": "code",
-            "scope": cmd_args.scope,
+            "scope": " ".join(cmd_args.scope),
             "state": session["state"],
             "nonce": session["nonce"],
             "redirect_uri": f"http://{self.server.server_address[0]}:{self.server.server_address[1]}/callback/"
@@ -46,6 +46,9 @@ class RequestHandler(BaseHTTPRequestHandler):
         auth_response = client.parse_response(AuthorizationResponse, info=self.path, sformat="urlencoded")
         if auth_response["state"] != session["state"]:
             self.send_error(HTTPStatus.BAD_REQUEST, "invalid state", explain="The state of the callback does not match in-memory state")
+            return
+        if isinstance(auth_response, AuthorizationErrorResponse):
+            self.send_error(HTTPStatus.INTERNAL_SERVER_ERROR, auth_response["error"], explain=auth_response["error_description"])
             return
 
         # exchange received code for proper access and refresh tokens
@@ -86,7 +89,7 @@ if __name__ == "__main__":
     parser.add_argument("--client-secret", help="OpenId Connect client secret. Defaults to dev-client's secret",
                         default="bb0c83bc-1dd9-4946-a074-d452bc1fb830")
     parser.add_argument("--scope", help="OpenID scopes to request",
-                        action="append", default=["openid"])
+                        action="append", default=["openid", "dev-scope"])
     cmd_args = parser.parse_args()
 
     # initialize openid client
