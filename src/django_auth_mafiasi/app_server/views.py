@@ -7,7 +7,7 @@ from django.utils.module_loading import import_string
 from oic import rndstr
 from oic.oic import AuthorizationResponse
 
-from . import auth
+from django_auth_mafiasi import auth_utils
 
 
 try:
@@ -17,7 +17,7 @@ except ImportError as e:
 
 
 def login(request):
-    client = auth.get_client()
+    client = auth_utils.get_client()
     request.session["oic_state"] = rndstr()
     request.session["oic_nonce"] = rndstr()
 
@@ -34,7 +34,7 @@ def login(request):
 
 
 def login_callback(request):
-    client = auth.get_client()
+    client = auth_utils.get_client()
     auth_response = client.parse_response(AuthorizationResponse, info=request.get_full_path(), sformat="urlencoded")
     assert auth_response["state"] == request.session["oic_state"]
 
@@ -50,7 +50,7 @@ def login_callback(request):
 
 
 def logout(request):
-    client = auth.get_client()
+    client = auth_utils.get_client()
 
     end_session_request = client.do_end_session_request(scope=settings.AUTH_SCOPE, request_args={
         "post_logout_redirect_uri": request.build_absolute_uri(reverse("django_auth_mafiasi:logout-callback")),

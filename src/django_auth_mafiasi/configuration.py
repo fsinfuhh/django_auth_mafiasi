@@ -14,7 +14,7 @@ class BaseAuthConfigurationMixin:
     "List of apps which need to be added to django's " \
     "`INSTALLED_APPS <https://docs.djangoproject.com/en/3.1/ref/settings/#installed-apps>`_"
 
-    AUTH_GET_USER_FROM_ID_TOKEN_FUNCTION = "django_auth_mafiasi.auth.get_user_from_id_token"
+    AUTH_GET_USER_FROM_ID_TOKEN_FUNCTION = "django_auth_mafiasi.auth_utils.get_user_from_id_token"
     "Import path of a function which is used when a user object needs to be derived from an OpenId **ID token**"
 
     AUTH_GET_USER_FROM_ACCESS_TOKEN_FUNCTION = "django_auth_mafiasi.auth.get_user_from_access_token"
