@@ -5,6 +5,7 @@ class OpenIdAccessTokenAuthenticationExtension(OpenApiAuthenticationExtension):
     """
     Provides metadata for drf-spectacular based OpenApi schema generation
     """
+
     target_class = "django_auth_mafiasi.django_rest_framework.authentication.OpenIdAccessTokenAuthentication"
     name = "openIdAccessTokenAuth"
 
@@ -15,5 +16,3 @@ class OpenIdAccessTokenAuthenticationExtension(OpenApiAuthenticationExtension):
             "scheme": "Bearer",
             "bearerFormat": "JWT",
         }
-
-

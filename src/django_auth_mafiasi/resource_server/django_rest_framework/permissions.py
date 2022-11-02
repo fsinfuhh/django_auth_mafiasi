@@ -11,6 +11,7 @@ class IsStaff(BasePermission):
 
     See https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User.is_staff
     """
+
     def has_permission(self, request, view):
         return request.user.is_staff
 
@@ -24,6 +25,7 @@ class IsSuperUser(BasePermission):
 
     See https://docs.djangoproject.com/en/3.1/ref/contrib/auth/#django.contrib.auth.models.User.is_superuser
     """
+
     def has_permission(self, request, view):
         return request.user.is_superuser
 

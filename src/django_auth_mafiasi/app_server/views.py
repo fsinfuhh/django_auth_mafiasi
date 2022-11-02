@@ -11,7 +11,9 @@ from django_auth_mafiasi import auth_utils
 
 
 try:
-    get_user_from_id_token = import_string(settings.AUTH_GET_USER_FROM_ID_TOKEN_FUNCTION)
+    get_user_from_id_token = import_string(
+        settings.AUTH_GET_USER_FROM_ID_TOKEN_FUNCTION
+    )
 except ImportError as e:
     raise ImproperlyConfigured(e)
 
@@ -21,13 +23,17 @@ def login(request):
     request.session["oic_state"] = rndstr()
     request.session["oic_nonce"] = rndstr()
 
-    auth_req = client.construct_AuthorizationRequest(request_args={
-        "response_type": "code",
-        "scope": settings.AUTH_SCOPE,
-        "nonce": request.session["oic_nonce"],
-        "state": request.session["oic_state"],
-        "redirect_uri": request.build_absolute_uri(reverse("django_auth_mafiasi:login-callback"))
-    })
+    auth_req = client.construct_AuthorizationRequest(
+        request_args={
+            "response_type": "code",
+            "scope": settings.AUTH_SCOPE,
+            "nonce": request.session["oic_nonce"],
+            "state": request.session["oic_state"],
+            "redirect_uri": request.build_absolute_uri(
+                reverse("django_auth_mafiasi:login-callback")
+            ),
+        }
+    )
     login_url = auth_req.request(client.authorization_endpoint)
 
     return redirect(login_url)
@@ -35,11 +41,21 @@ def login(request):
 
 def login_callback(request):
     client = auth_utils.get_client()
-    auth_response = client.parse_response(AuthorizationResponse, info=request.get_full_path(), sformat="urlencoded")
+    auth_response = client.parse_response(
+        AuthorizationResponse, info=request.get_full_path(), sformat="urlencoded"
+    )
     assert auth_response["state"] == request.session["oic_state"]
 
-    token_response = client.do_access_token_request(scope=settings.AUTH_SCOPE, state=auth_response["state"],
-                                                    request_args={"code": auth_response["code"], "redirect_uri": request.build_absolute_uri(reverse("django_auth_mafiasi:login-callback"))})
+    token_response = client.do_access_token_request(
+        scope=settings.AUTH_SCOPE,
+        state=auth_response["state"],
+        request_args={
+            "code": auth_response["code"],
+            "redirect_uri": request.build_absolute_uri(
+                reverse("django_auth_mafiasi:login-callback")
+            ),
+        },
+    )
 
     user = get_user_from_id_token(token_response["id_token"])
     django_auth.login(request, user)
@@ -52,10 +68,15 @@ def login_callback(request):
 def logout(request):
     client = auth_utils.get_client()
 
-    end_session_request = client.do_end_session_request(scope=settings.AUTH_SCOPE, request_args={
-        "post_logout_redirect_uri": request.build_absolute_uri(reverse("django_auth_mafiasi:logout-callback")),
-        "id_token": request.session["oic_id_token"],
-    })
+    end_session_request = client.do_end_session_request(
+        scope=settings.AUTH_SCOPE,
+        request_args={
+            "post_logout_redirect_uri": request.build_absolute_uri(
+                reverse("django_auth_mafiasi:logout-callback")
+            ),
+            "id_token": request.session["oic_id_token"],
+        },
+    )
 
     return redirect(end_session_request.url)
 

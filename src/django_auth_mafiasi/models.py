@@ -14,6 +14,7 @@ class MafiasiAuthModelUser(AbstractUser):
     It provides an id field that is compatible with mafiasi-identity IDs as well as additional fields that might
     be empty depending on whether the django app requests the relevant scopes from mafiasi-identity.
     """
+
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
 
     # the username field is always null if unset to avoid uniqueness errors

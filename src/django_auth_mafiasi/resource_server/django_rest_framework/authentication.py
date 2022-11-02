@@ -15,7 +15,9 @@ except ImportError:
 
 
 try:
-    get_user_from_access_token = import_string(settings.AUTH_GET_USER_FROM_ACCESS_TOKEN_FUNCTION)
+    get_user_from_access_token = import_string(
+        settings.AUTH_GET_USER_FROM_ACCESS_TOKEN_FUNCTION
+    )
 except ImportError as e:
     raise ImproperlyConfigured(e)
 
@@ -59,15 +61,21 @@ class OpenIdAccessTokenAuthentication(BaseAuthentication):
         """
         try:
             # validate for standardized validity
-            decoded_token = PyJwtVerifier(token, iss=settings.AUTH_SERVER, cache_enabled=False).decoded_payload
+            decoded_token = PyJwtVerifier(
+                token, iss=settings.AUTH_SERVER, cache_enabled=False
+            ).decoded_payload
         except PyJwtException as e:
             raise AuthenticationFailed(detail=str(e))
 
         # validate required scopes
         token_scopes = decoded_token["scope"].split(" ")
-        missing_scopes = [i for i in settings.REST_FRAMEWORK_REQUIRED_SCOPES if i not in token_scopes]
+        missing_scopes = [
+            i for i in settings.REST_FRAMEWORK_REQUIRED_SCOPES if i not in token_scopes
+        ]
         if len(missing_scopes) > 0:
-            raise AuthenticationFailed(detail=f"token is missing scopes {missing_scopes} which are required "
-                                              f"for accessing this application")
+            raise AuthenticationFailed(
+                detail=f"token is missing scopes {missing_scopes} which are required "
+                f"for accessing this application"
+            )
 
         return decoded_token

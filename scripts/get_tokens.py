@@ -27,13 +27,15 @@ class RequestHandler(BaseHTTPRequestHandler):
         # setup oic code flow
         session["state"] = rndstr()
         session["nonce"] = rndstr()
-        auth_req = client.construct_AuthorizationRequest(request_args={
-            "response_type": "code",
-            "scope": " ".join(cmd_args.scope),
-            "state": session["state"],
-            "nonce": session["nonce"],
-            "redirect_uri": f"http://{self.server.server_address[0]}:{self.server.server_address[1]}/callback/"
-        })
+        auth_req = client.construct_AuthorizationRequest(
+            request_args={
+                "response_type": "code",
+                "scope": " ".join(cmd_args.scope),
+                "state": session["state"],
+                "nonce": session["nonce"],
+                "redirect_uri": f"http://{self.server.server_address[0]}:{self.server.server_address[1]}/callback/",
+            }
+        )
         login_url = auth_req.request(client.authorization_endpoint)
 
         # send response
@@ -43,25 +45,42 @@ class RequestHandler(BaseHTTPRequestHandler):
         global session
 
         # parse callback
-        auth_response = client.parse_response(AuthorizationResponse, info=self.path, sformat="urlencoded")
+        auth_response = client.parse_response(
+            AuthorizationResponse, info=self.path, sformat="urlencoded"
+        )
         if auth_response["state"] != session["state"]:
-            self.send_error(HTTPStatus.BAD_REQUEST, "invalid state", explain="The state of the callback does not match in-memory state")
+            self.send_error(
+                HTTPStatus.BAD_REQUEST,
+                "invalid state",
+                explain="The state of the callback does not match in-memory state",
+            )
             return
         if isinstance(auth_response, AuthorizationErrorResponse):
-            self.send_error(HTTPStatus.INTERNAL_SERVER_ERROR, auth_response["error"], explain=auth_response["error_description"])
+            self.send_error(
+                HTTPStatus.INTERNAL_SERVER_ERROR,
+                auth_response["error"],
+                explain=auth_response["error_description"],
+            )
             return
 
         # exchange received code for proper access and refresh tokens
-        token_response = client.do_access_token_request(scope=cmd_args.scope, state=session["state"],
-                                                        request_args={"code": auth_response["code"]})
+        token_response = client.do_access_token_request(
+            scope=cmd_args.scope,
+            state=session["state"],
+            request_args={"code": auth_response["code"]},
+        )
         # retrieve user information with newly received access token
-        userinfo = client.do_user_info_request(state=session["state"], scope=cmd_args.scope)
+        userinfo = client.do_user_info_request(
+            state=session["state"], scope=cmd_args.scope
+        )
 
         # output data
-        self.return_json_response({
-            "token_response": token_response.to_dict(),
-            "userinfo": userinfo.to_dict(),
-        })
+        self.return_json_response(
+            {
+                "token_response": token_response.to_dict(),
+                "userinfo": userinfo.to_dict(),
+            }
+        )
         print("===============================================================")
         print(f"token_type: {token_response.get('token_type')}")
         print("access_token:")
@@ -81,21 +100,42 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser("get_tokens", description="Retrieves access and id tokens from Mafiasi Identity")
-    parser.add_argument("--issuer", help="OpenId Connect issuer. Defaults to Mafiasi",
-                        default="https://identity.mafiasi.de/auth/realms/mafiasi")
-    parser.add_argument("--client-id", help="OpenId Connect client id. Defaults to dev-client",
-                        default="dev-client")
-    parser.add_argument("--client-secret", help="OpenId Connect client secret. Defaults to dev-client's secret",
-                        default="bb0c83bc-1dd9-4946-a074-d452bc1fb830")
-    parser.add_argument("--scope", help="OpenID scopes to request",
-                        action="append", default=["openid", "dev-scope"])
+    parser = argparse.ArgumentParser(
+        "get_tokens", description="Retrieves access and id tokens from Mafiasi Identity"
+    )
+    parser.add_argument(
+        "--issuer",
+        help="OpenId Connect issuer. Defaults to Mafiasi",
+        default="https://identity.mafiasi.de/auth/realms/mafiasi",
+    )
+    parser.add_argument(
+        "--client-id",
+        help="OpenId Connect client id. Defaults to dev-client",
+        default="dev-client",
+    )
+    parser.add_argument(
+        "--client-secret",
+        help="OpenId Connect client secret. Defaults to dev-client's secret",
+        default="bb0c83bc-1dd9-4946-a074-d452bc1fb830",
+    )
+    parser.add_argument(
+        "--scope",
+        help="OpenID scopes to request",
+        action="append",
+        default=["openid", "dev-scope"],
+    )
     cmd_args = parser.parse_args()
 
     # initialize openid client
-    client = Client(client_id=cmd_args.client_id, client_authn_method=CLIENT_AUTHN_METHOD)
+    client = Client(
+        client_id=cmd_args.client_id, client_authn_method=CLIENT_AUTHN_METHOD
+    )
     client.provider_config(cmd_args.issuer)
-    client.store_registration_info(RegistrationResponse(client_id=cmd_args.client_id, client_secret=cmd_args.client_secret))
+    client.store_registration_info(
+        RegistrationResponse(
+            client_id=cmd_args.client_id, client_secret=cmd_args.client_secret
+        )
+    )
 
     # initialize a session object (which is very primitive but works)
     session = defaultdict(lambda: "")

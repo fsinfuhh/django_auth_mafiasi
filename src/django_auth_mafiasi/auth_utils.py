@@ -27,9 +27,15 @@ def get_client():
     """
     Construct an appropriately configured OpenId Connect client instance
     """
-    client = Client(client_id=settings.AUTH_CLIENT_ID, client_authn_method=CLIENT_AUTHN_METHOD)
+    client = Client(
+        client_id=settings.AUTH_CLIENT_ID, client_authn_method=CLIENT_AUTHN_METHOD
+    )
     client.provider_config(issuer=settings.AUTH_SERVER)
-    client.store_registration_info(RegistrationResponse(client_id=settings.AUTH_CLIENT_ID, client_secret=settings.AUTH_CLIENT_SECRET))
+    client.store_registration_info(
+        RegistrationResponse(
+            client_id=settings.AUTH_CLIENT_ID, client_secret=settings.AUTH_CLIENT_SECRET
+        )
+    )
 
     return client
 
@@ -55,7 +61,7 @@ def get_user_from_id_token(id_token: dict):
     """
     id_token = defaultdict(lambda: None, **id_token)
 
-    User = get_user_model()     # type: Type[MafiasiAuthModelUser]
+    User = get_user_model()  # type: Type[MafiasiAuthModelUser]
     user, created = User.objects.get_or_create(id=id_token["sub"])
 
     # we set username to None instead of a blank string to avoid unique constraint collisions
@@ -70,7 +76,7 @@ def get_user_from_id_token(id_token: dict):
 
     user.set_unusable_password()
     user.clean_fields()
-    user.backend = 'django.contrib.auth.backends.ModelBackend'
+    user.backend = "django.contrib.auth.backends.ModelBackend"
     user.save()
 
     return user

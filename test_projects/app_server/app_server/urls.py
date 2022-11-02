@@ -18,7 +18,7 @@ from django.urls import path, include
 from .views import index
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("auth/", include("django_auth_mafiasi.app_server.urls")),
     path("", index),
 ]

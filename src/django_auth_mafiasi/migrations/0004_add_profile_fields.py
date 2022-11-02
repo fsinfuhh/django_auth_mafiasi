@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('django_auth_mafiasi', '0003_auto_20210204_1525'),
+        ("django_auth_mafiasi", "0003_auto_20210204_1525"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='mafiasiauthmodeluser',
-            name='display_name',
+            model_name="mafiasiauthmodeluser",
+            name="display_name",
             field=models.CharField(blank=True, max_length=150),
         ),
         migrations.AddField(
-            model_name='mafiasiauthmodeluser',
-            name='email_verified',
+            model_name="mafiasiauthmodeluser",
+            name="email_verified",
             field=models.BooleanField(blank=True, null=True),
         ),
     ]

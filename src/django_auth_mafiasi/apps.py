@@ -14,10 +14,12 @@ def check_user_model(app_configs, **kwargs) -> List[CheckMessage]:
     from .models import MafiasiAuthModelUser
 
     if not issubclass(get_user_model(), (MafiasiAuthModelUser,)):
-        return [Warning(
-            "The user model might not be compatible with Mafiasi authentication",
-            hint="Set AUTH_USER_MODEL to django_auth_mafiasi.MafiasiAuthModelUser or a derived class",
-            obj=get_user_model(),
-            id=f"{MafiasiAuthConfig.name}:W001"
-        )]
+        return [
+            Warning(
+                "The user model might not be compatible with Mafiasi authentication",
+                hint="Set AUTH_USER_MODEL to django_auth_mafiasi.MafiasiAuthModelUser or a derived class",
+                obj=get_user_model(),
+                id=f"{MafiasiAuthConfig.name}:W001",
+            )
+        ]
     return []

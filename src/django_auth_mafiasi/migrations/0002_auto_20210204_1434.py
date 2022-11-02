@@ -6,15 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('django_auth_mafiasi', '0001_initial'),
+        ("django_auth_mafiasi", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='mafiasiauthmodeluser',
-            name='username',
+            model_name="mafiasiauthmodeluser",
+            name="username",
             field=models.CharField(max_length=150, null=True, unique=True),
         ),
-        migrations.RunSQL(sql='UPDATE django_auth_mafiasi_mafiasiauthmodeluser SET username = NULL WHERE username = \'\';',
-                          reverse_sql='UPDATE django_auth_mafiasi_mafiasiauthmodeluser SET username = \'\' WHERE username = NULL')
+        migrations.RunSQL(
+            sql="UPDATE django_auth_mafiasi_mafiasiauthmodeluser SET username = NULL WHERE username = '';",
+            reverse_sql="UPDATE django_auth_mafiasi_mafiasiauthmodeluser SET username = '' WHERE username = NULL",
+        ),
     ]
