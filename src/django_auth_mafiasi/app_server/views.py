@@ -56,7 +56,7 @@ def login_callback(request):
                 reverse("django_auth_mafiasi:login-callback")
             ),
         },
-        skew=30,    # allow 30-second clock screw during token validation
+        skew=30,  # allow 30-second clock screw during token validation
     )
 
     user = get_user_from_id_token(token_response["id_token"])
