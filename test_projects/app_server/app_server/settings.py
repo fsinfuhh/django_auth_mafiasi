@@ -135,7 +135,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
         },
     }
 
-    AUTH_SCOPE = ["openid", "email"]
+    AUTH_SCOPE = ["openid", "email", "profile"]
 
 
 class Dev(DevAuthConfigurationMixin, Base):
