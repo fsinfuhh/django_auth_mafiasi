@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from .models import MafiasiAuthModelUser
 
 
-def _is_in_groups(token: dict, required_groups: List[str]) -> bool:
+def is_in_groups(token: dict, required_groups: List[str]) -> bool:
     """
     Check whether the given encoded token is in one of the given required groups.
 
@@ -59,24 +59,9 @@ def get_user_from_id_token(id_token: dict):
     ID tokens are designed to identify a user and might contain much information about the user.
     Therefore, this function extracts as much information as possible from the ID token and automatically updates the user object accordingly.
     """
-    id_token = defaultdict(lambda: None, **id_token)
-
     User = get_user_model()  # type: Type[MafiasiAuthModelUser]
-    user, created = User.objects.get_or_create(id=id_token["sub"])
-
-    # we set username to None instead of a blank string to avoid unique constraint collisions
-    user.username = id_token["username"]
-    user.first_name = id_token["given_name"] or ""
-    user.last_name = id_token["family_name"] or ""
-    user.display_name = id_token["display_name"] or ""
-    user.email = id_token["email"] or ""
-    user.email_verified = id_token["email_verified"]
-    user.is_staff = _is_in_groups(id_token, settings.AUTH_STAFF_GROUPS)
-    user.is_superuser = _is_in_groups(id_token, settings.AUTH_SUPERUSER_GROUPS)
-
-    user.set_unusable_password()
-    user.clean_fields()
-    user.backend = "django.contrib.auth.backends.ModelBackend"
+    user, _ = User.objects.get_or_create(id=id_token["sub"])
+    user.update_from_token(id_token)
+    user.full_clean()
     user.save()
-
     return user

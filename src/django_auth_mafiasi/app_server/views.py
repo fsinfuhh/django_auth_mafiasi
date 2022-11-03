@@ -7,6 +7,7 @@ from django.utils.module_loading import import_string
 from oic import rndstr
 from oic.oic import AuthorizationResponse
 
+from django_auth_mafiasi.models import UserToken
 from django_auth_mafiasi import auth_utils
 
 
@@ -58,9 +59,13 @@ def login_callback(request):
     )
 
     user = get_user_from_id_token(token_response["id_token"])
+    tokens = UserToken.objects.create(
+        user=user,
+        access_token=token_response["access_token"],
+        refresh_token=token_response["refresh_token"],
+    )
+    print("access_token", tokens.access_token)
     django_auth.login(request, user)
-    request.session["oic_access_token"] = token_response["access_token"]
-    request.session["oic_id_token"] = token_response["id_token"].to_dict()
 
     return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
 

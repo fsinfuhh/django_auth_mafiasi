@@ -122,7 +122,7 @@ if __name__ == "__main__":
         "--scope",
         help="OpenID scopes to request",
         action="append",
-        default=["openid", "dev-scope"],
+        default=["openid", "dev-scope", "profile", "email"],
     )
     cmd_args = parser.parse_args()
 
