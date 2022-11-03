@@ -55,6 +55,9 @@ class MafiasiAuthModelUser(AbstractUser):
             token, settings.AUTH_SUPERUSER_GROUPS
         )
 
+        if self.password == "":
+            self.set_unusable_password()
+
     def refresh_from_mafiasi_identity(self):
         """
         Try to refresh user data from mafiasi-identity.
