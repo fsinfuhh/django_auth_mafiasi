@@ -8,4 +8,4 @@ For a detailed guide see the
 `documentation <https://git.mafiasi.de/mafiasi-ag/django_auth_mafiasi/src/branch/master/README.md>`_
 """
 
-default_app_config = "django_auth_mafiasi.apps.MafiasiAuthConfig"
+default_app_config = "django_auth_mafiasi.apps.DjangoAuthMafiasiConfig"

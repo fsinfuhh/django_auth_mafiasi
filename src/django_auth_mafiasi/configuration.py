@@ -1,7 +1,6 @@
 """
 Mixin classes when `django-configurations <https://pypi.org/project/django-configurations/>`_ is used
 """
-
 from configurations import values
 
 

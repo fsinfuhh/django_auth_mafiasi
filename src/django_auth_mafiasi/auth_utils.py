@@ -1,7 +1,7 @@
-from collections import defaultdict
 from typing import *
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.apps import apps
 from oic.oic import Client, RegistrationResponse
 from oic.utils.authn.client import CLIENT_AUTHN_METHOD
 
@@ -23,9 +23,11 @@ def is_in_groups(token: dict, required_groups: List[str]) -> bool:
     return [g for g in required_groups if g in token["groups"]] == required_groups
 
 
-def get_client():
+def create_client() -> Client:
     """
-    Construct an appropriately configured OpenId Connect client instance
+    Construct an appropriately configured OpenId Connect client instance.
+
+    You should probably never need to call this but instead use `get_client`.
     """
     client = Client(
         client_id=settings.AUTH_CLIENT_ID, client_authn_method=CLIENT_AUTHN_METHOD
@@ -38,6 +40,13 @@ def get_client():
     )
 
     return client
+
+
+def get_client() -> Client:
+    """
+    Retrieve an oic client instance for further use
+    """
+    return apps.get_app_config("django_auth_mafiasi").oic_client
 
 
 def get_user_from_access_token(token: dict):
