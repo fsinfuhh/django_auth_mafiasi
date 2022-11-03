@@ -56,15 +56,15 @@ def login_callback(request):
                 reverse("django_auth_mafiasi:login-callback")
             ),
         },
+        skew=30,    # allow 30-second clock screw during token validation
     )
 
     user = get_user_from_id_token(token_response["id_token"])
-    tokens = UserToken.objects.create(
+    UserToken.objects.create(
         user=user,
         access_token=token_response["access_token"],
         refresh_token=token_response["refresh_token"],
     )
-    print("access_token", tokens.access_token)
     django_auth.login(request, user)
 
     return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
