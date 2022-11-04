@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 from django.conf import settings
@@ -47,6 +49,7 @@ def login_callback(request):
     )
     assert auth_response["state"] == request.session["oic_state"]
 
+    now = datetime.utcnow()
     token_response = client.do_access_token_request(
         scope=settings.AUTH_SCOPE,
         state=auth_response["state"],
@@ -63,7 +66,13 @@ def login_callback(request):
     UserToken.objects.create(
         user=user,
         access_token=token_response["access_token"],
+        access_expiry=datetime.utcfromtimestamp(
+            now.timestamp() + token_response["expires_in"]
+        ),
         refresh_token=token_response["refresh_token"],
+        refresh_expiry=datetime.utcfromtimestamp(
+            now.timestamp() + token_response["refresh_expires_in"]
+        ),
     )
     django_auth.login(request, user)
 

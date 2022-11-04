@@ -97,4 +97,6 @@ class UserToken(models.Model):
         related_name="tokens",
     )
     access_token = models.CharField(max_length=256)
+    access_expiry = models.DateTimeField()
     refresh_token = models.CharField(max_length=256)
+    refresh_expiry = models.DateTimeField()
