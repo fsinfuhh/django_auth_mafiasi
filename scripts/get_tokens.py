@@ -68,10 +68,12 @@ class RequestHandler(BaseHTTPRequestHandler):
             scope=cmd_args.scope,
             state=session["state"],
             request_args={"code": auth_response["code"]},
+            skew=30,  # allow 30-second clock screw during token validation
         )
         # retrieve user information with newly received access token
         userinfo = client.do_user_info_request(
-            state=session["state"], scope=cmd_args.scope
+            scope=cmd_args.scope,
+            token=token_response["access_token"],
         )
 
         # output data
